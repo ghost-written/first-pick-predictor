@@ -1,3 +1,5 @@
+layout: default
+
 # first-pick-predictor
 This is a classification-based prediction model which uses the champion ban list and several other features to predict the first champion picked in a League of Legends game.
 
