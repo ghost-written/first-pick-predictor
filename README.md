@@ -33,8 +33,6 @@ Now it's time to clean and analyze the data. As our first step, let's cut the da
 | 10660-10660_game_2 |             200 | Poppy    | Ashe     | Rumble       | Tristana  | Lucian    | Kalista      |   13.24 | Rare Atom   |
 | 10660-10660_game_3 |             100 | Rell     | Nocturne | Tristana     | Jarvan IV | Rumble    | Neeko        |   13.24 | LNG Esports |
 
-<br>
-
 Not bad, but we can do more. From the individual player rows we just dropped, we can retrieve the **position** column of the player whose champion appears in the pick1 slot. This requires matching and merging, but leaves us with potentially useful information for later.
 
 | gameid             |   participantid | ban1     | ban2     | ban3         | ban4      | ban5      | pick1        |   patch | teamname    | position   |
@@ -45,8 +43,6 @@ Not bad, but we can do more. From the individual player rows we just dropped, we
 | 10660-10660_game_2 |             200 | Poppy    | Ashe     | Rumble       | Tristana  | Lucian    | Kalista      |   13.24 | Rare Atom   | bot        |
 | 10660-10660_game_3 |             100 | Rell     | Nocturne | Tristana     | Jarvan IV | Rumble    | Neeko        |   13.24 | LNG Esports | mid        |
 
-<br>
-
 Still, we can do more. It's possible that individual players favour certain champions. Much like we plucked position from the main dataframe by isolating and then merging it in, we can do the same along the same technical lines with **playername**, adding it to our DataFrame.
 
 | gameid             |   participantid | ban1     | ban2     | ban3         | ban4      | ban5      | pick1        |   patch | teamname    | position   | playername   |
@@ -56,8 +52,6 @@ Still, we can do more. It's possible that individual players favour certain cham
 | 10660-10660_game_2 |             100 | Nocturne | Udyr     | Renata Glasc | Nautilus  | Lee Sin   | Neeko        |   13.24 | LNG Esports | mid        | Scout        |
 | 10660-10660_game_2 |             200 | Poppy    | Ashe     | Rumble       | Tristana  | Lucian    | Kalista      |   13.24 | Rare Atom   | bot        | Assum        |
 | 10660-10660_game_3 |             100 | Rell     | Nocturne | Tristana     | Jarvan IV | Rumble    | Neeko        |   13.24 | LNG Esports | mid        | Scout        |
-
-<br>
 
 Almost there, but there's still one glaring issue with our DataFrame. In a match, 10 champions are banned. Right now, those are split across participantid **100** and **200** in sets of 5 apiece, by team. However, we want to remove the 2nd team (id **200**)'s bans and merge them in as new columns, afterwards deleting the 2nd team's row.
 
