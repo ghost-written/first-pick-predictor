@@ -65,15 +65,23 @@ We isolate the opponent bans, resulting in a DataFrame which looks like this:
 | 10660-10660_game_4 | Rell    | Nocturne | Ashe    | Azir     | Akali     |
 | 10661-10661_game_1 | Kalista | Nocturne | Neeko   | Sejuani  | Poppy     |
 
-Then we merge on gameid, eliminate the now-duplicate rows for the 2nd team (id **200**), and drop NaN values. Our DataFrame for evaluation and training is now ready.
+Then we merge on gameid, eliminate the now-duplicate rows for the 2nd team (id **200**), and drop NaN values. Our DataFrame for evaluation and training is now ready (broken into 2 rows for legibility, but these are the same DataFrame).
 
-| ban1     | ban2     | ban3         | ban4      | ban5    | pick1   |   patch | teamname    | position   | playername   | ban6    | ban7     | ban8    | ban9     | ban10     |
-|:---------|:---------|:-------------|:----------|:--------|:--------|--------:|:------------|:-----------|:-------------|:--------|:---------|:--------|:---------|:----------|
-| Akali    | Nocturne | K'Sante      | Lee Sin   | Wukong  | Kalista |   13.24 | LNG Esports | bot        | GALA         | Poppy   | Ashe     | Neeko   | Vi       | Jarvan IV |
-| Nocturne | Udyr     | Renata Glasc | Nautilus  | Lee Sin | Neeko   |   13.24 | LNG Esports | mid        | Scout        | Poppy   | Ashe     | Rumble  | Tristana | Lucian    |
-| Rell     | Nocturne | Tristana     | Jarvan IV | Rumble  | Neeko   |   13.24 | LNG Esports | mid        | Scout        | Poppy   | Ashe     | LeBlanc | Sejuani  | Vi        |
-| Poppy    | LeBlanc  | Neeko        | Sejuani   | Jax     | Rumble  |   13.24 | Rare Atom   | top        | Xiaoxu       | Rell    | Nocturne | Ashe    | Azir     | Akali     |
-| Ashe     | Akali    | LeBlanc      | Vi        | Jax     | Varus   |   13.24 | JD Gaming   | bot        | Ruler        | Kalista | Nocturne | Neeko   | Sejuani  | Poppy     |
+| ban1     | ban2     | ban3         | ban4      | ban5    | pick1   | patch  |
+|:---------|:---------|:-------------|:----------|:--------|:--------|-------:|
+| Akali    | Nocturne | K'Sante      | Lee Sin   | Wukong  | Kalista | 13.24  |
+| Nocturne | Udyr     | Renata Glasc | Nautilus  | Lee Sin | Neeko   | 13.24  |
+| Rell     | Nocturne | Tristana     | Jarvan IV | Rumble  | Neeko   | 13.24  |
+| Poppy    | LeBlanc  | Neeko        | Sejuani   | Jax     | Rumble  | 13.24  |
+| Ashe     | Akali    | LeBlanc      | Vi        | Jax     | Varus   | 13.24  |
+
+| teamname    | position   | playername   | ban6    | ban7     | ban8    | ban9     | ban10     |
+|:------------|:-----------|:-------------|:--------|:---------|:--------|:---------|:----------|
+| LNG Esports | bot        | GALA         | Poppy   | Ashe     | Neeko   | Vi       | Jarvan IV |
+| LNG Esports | mid        | Scout        | Poppy   | Ashe     | Rumble  | Tristana | Lucian    |
+| LNG Esports | mid        | Scout        | Poppy   | Ashe     | LeBlanc | Sejuani  | Vi        |
+| Rare Atom   | top        | Xiaoxu       | Rell    | Nocturne | Ashe    | Azir     | Akali     |
+| JD Gaming   | bot        | Ruler        | Kalista | Nocturne | Neeko   | Sejuani  | Poppy     |
 
 However, for the purposes of our following analyses, we will reflect on the overall, unaltered dataset.
 
