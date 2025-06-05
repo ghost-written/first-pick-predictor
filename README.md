@@ -19,6 +19,9 @@ Dizzying. What here is it we need?
 At a baseline, we care about the columns ban1-5, and the column pick1. These ban data should be useful in predicting the first champion picked. While all ban information resides in ban1-5 and all pick information resides in pick1, there is cleaning and rearranging that must be done so as not to repeatedly sample information, and to indicate where the actual first pick resides. Information is separated per-row by participantid. Each player 1-10 has an id 1-10, while game information itself, including pick1-5, resides in the rows where participantid is 100 (for team 1) and 200 (for team 2).
 
 So, the columns we want to look at are:
+- test
+- test
+- test
 
 Let's cut that down to relevant columns and rows.
 
