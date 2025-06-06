@@ -93,3 +93,36 @@ However, for the purposes of our following analyses, we will reflect on the over
   width=1000px
   height=500px
 ></iframe>
+
+In this plot, the top 30 picked champions, we look for any particular outliers that might be useful in predicting pick1 later. It looks like there are a few strong picks at the top that outweigh the rest, Rell, K'Sante, and Nautilus. However, these don't seem to be so drastic that it'd be ideal to treat them differently.
+
+### Bivariate Analysis
+
+<iframe
+  src="assets/arcane-banned-bivariate.html"
+  frameborder="0"
+  width=900px
+  height=800px
+></iframe>
+
+In this plot, we compare how many times every champion in the set was banned when a certain champion in the set was picked, and repeat this across all entries. The set is non-specific to gameplay, but rather themed after the cast of the popular show Arcane, set in the universe of League of Legends. We see that Vi is the most banned champion, and that there seems to be a relation between Vi and Orianna, where the players of one ban the other.
+
+### Pivot Table
+
+Here, we formed a rather long pivot table of champion bans split across each 'side', blue and red, to get a feel for if that necessarily changed who banned what (since blue picks first in League of Legends, being another way to express team with id **100** vs **200**, as discussed earlier. Only the head is included for the sake of brevity, since there are many champions. On the whole, we did not find a significant difference either way where champions were banned more by blue or red. 
+
+| champion       |   Blue |   Red |
+|:---------------|-------:|------:|
+| Aatrox         |   1842 |  1644 |
+| Ahri           |   1812 |  1794 |
+| Akali          |   1950 |  1776 |
+| Akshan         |    102 |    78 |
+| Alistar        |   2064 |  2742 |
+
+This brings us forward, to our assessment of missingness.
+
+## Assessment of Missingness
+### NMAR Analysis
+
+
+
