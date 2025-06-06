@@ -109,7 +109,7 @@ In this plot, we compare how many times every champion in the set was banned whe
 
 ### Pivot Table
 
-Here, we formed a rather long pivot table of champion bans split across each 'side', blue and red, to get a feel for if that necessarily changed who banned what (since blue picks first in League of Legends, being another way to express team with id **100** vs **200**, as discussed earlier. Only the head is included for the sake of brevity, since there are many champions. On the whole, we did not find a significant difference either way where champions were banned more by blue or red. 
+Here, we formed a rather long pivot table of champion bans split across each 'side', blue and red, to get a feel for if that necessarily changed who banned what (since blue picks first in League of Legends, being another way to express team with id **100** vs **200**, as discussed earlier. Only the head is included for the sake of brevity, since there are many champions. I used this to consider whether or not I was going to introduce side as a feature later.
 
 | champion       |   Blue |   Red |
 |:---------------|-------:|------:|
@@ -118,11 +118,26 @@ Here, we formed a rather long pivot table of champion bans split across each 'si
 | Akali          |   1950 |  1776 |
 | Akshan         |    102 |    78 |
 | Alistar        |   2064 |  2742 |
+| Ambessa        |     78 |    60 |
+| Amumu          |    330 |   258 |
+| Anivia         |     96 |    84 |
+| Annie          |    144 |   216 |
+| Aphelios       |    840 |   660 |
 
-This brings us forward, to our assessment of missingness.
+This brings us forward to our assessment of missingness.
 
 ## Assessment of Missingness
 ### NMAR Analysis
+A good example of an NMAR missingness column in my dataset is **firsttothreetowers**, which measures the team that was the first to destroy three towers. Since you don't need to destroy three towers to win, or any achieve other data metric in the set, it isn't clear if missing values are missing, or should be imputed with data that neither team destroyed three towers, for a value of **0.0** each in the relevant slots of that column. 
 
+If we had access to the **total number of towers destroyed per team**, we could at least know for sure if we could impute **0.0** for both teams, or make an educated guess on which one reached three first if they are both above that threshold, which would make missingness MAR, dependent on the new **total number of towers destroyed per team** column.
 
+### Missingness Dependency
+
+<iframe
+  src="assets/elders-patch-missingness-dependency.html"
+  frameborder="0"
+  width=800px
+  height=600px
+></iframe>
 
