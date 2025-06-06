@@ -2,7 +2,7 @@
 ---
 
 @import "{{ site.theme }}";
-.main_content {
+.main_content.inner {
   max-width: 1200px;
   margin: 0 auto;
 }
