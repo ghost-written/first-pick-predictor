@@ -92,5 +92,5 @@ However, for the purposes of our following analyses, we will reflect on the over
   width="720"
   height="540"
   frameborder="0"
-  style="max-width: 100%; overflow: auto;">
+  style="max-width: 200%; overflow: auto;">
 ></iframe>
