@@ -190,4 +190,5 @@ The accuracy of this model was approximately 0.474, or **47.4%**. I feel like th
 For Fairness Analysis, I chose the evaluation metric of precision. My Group X is the position "bot", while my Group Y is the position "mid". What this means is that the fairness analysis is determining if the model is more precise when the position is "bot" or "mid" in a statistically significant way, which I chose to set to a = 0.05. Our hypotheses are:
 - **H0:** Our model is fair. Its precision for bot lane is the same as its precision for mid lane.
 - **H1:** Our model is unfair. Its precision for bot lane is not the same as its precision for mid lane.
+
 When I ran the fairness analysis test, it returned a p-value of approximately **0.186**, higher than our significance level. Therefore, we failed to reject H0, and cannot disprove that our model's precision for bot lane is similar to its significance for mid lane, at significance level 0.05.
