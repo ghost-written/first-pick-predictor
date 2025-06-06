@@ -89,8 +89,8 @@ However, for the purposes of our following analyses, we will reflect on the over
 
 <iframe
   src="assets/top-30-champions.html"
-  width="720"
-  height="540"
+  width="1200"
+  height="900"
   frameborder="0"
   style="max-width: 200%; overflow: auto;">
 ></iframe>
