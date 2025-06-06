@@ -138,7 +138,7 @@ If we had access to the **total number of towers destroyed per team**, we could 
   src="assets/elders-patch-missingness-dependency.html"
   frameborder="0"
   width=800px
-  height=600px
+  height=400px
 ></iframe>
 
 Pictured is the Kolmogorov-Smirnov statistical result for our analysis to determine whether or not the missingness of the column 'elders', indicating how many Elder Dragons were killed, was dependent on the column 'patch', which showed what version of the game was being used. We determined to a high degree of confidence that it is not. That means that if we wanted to try to demonstrate that the missingness in 'elders' follows MAR principles, we could not use 'patch' as an example, because it demonstrates no correlation and therefore no dependency.
@@ -160,11 +160,34 @@ This brings us, next, to framing our actual prediction problem.
 
 From the beginning, our question is simple: **can we predict the first champion picked in a game?** We would like to achieve it using only knowledge of which champions were banned, but **do we need more**?
 
-This is a **classification** problem. It is a **multiclass classification** problem, because the question we are answering is not binary. If we were answering whether a champion would be picked or not, that would only have two categories, and therefore be binary. This, however, has a class for every champion. We are predicting **pick1** from the dataset we modified earlier, as that is the stated goal of this study, and it seems like something that should be reasonably predictable based on bans and shifting meta information.
+This is a **classification** problem. We will use RandomForestClassifier. It is a **multiclass classification** problem, because the question we are answering is not binary. If we were answering whether a champion would be picked or not, that would only have two categories, and therefore be binary. This, however, has a class for every champion. We are predicting **pick1** from the dataset we modified earlier, as that is the stated goal of this study, and it seems like something that should be reasonably predictable based on bans and shifting meta information.
 
 To evaluate our model, we will use **accuracy**. This is because many of the classes are roughly evenly balanced. If we could expect one third or one fourth of all champion entries to belong to a simple champion, then we might consider **F1-score**. However, the champion pool is so widely distributed that accuracy is the best, simplest metric we have.
 
 ## Baseline Model
-Our Baseline Model uses 10 features, 
+Our Baseline Model uses 10 features, ban1-10, representing the 10 banned champions in that match. These are all nominal categories, as each entry contains a champion name. All features were One-Hot Encoded through a ColumnTransformer and then sent though a Pipeline using RandomForestClassifier. That Pipeline was fit to a train_test_split with a test_size of 0.20, meaning 20% of the data went to the test set, and 80% of the data went to the training set.
 
+The accuracy of this model was approximately 0.197, or **19.7%**. I don't feel this is a very good model, mostly because it doesn't take advantage of the other features that I had prepared in the evaluation DataFrame to be used. At this point, it is best to consider how these can be used to improve the model. 
 
+This brings us to our final model.
+
+## Final Model
+To improve my model, I added the features position, playername, and patch.
+- I added **position** because some champions are much more common in certain positions, being exclusively played there, or sometimes in two. By including the position, the model will not be misled into guessing that a champion was selected for a position it is usually not played in.
+- I added **playername** because players sometimes have favourites and preferences, which can be established as trends over time.
+- I added **patch** because updates to the game sometimes make a champion better or worse. A strong champion which is very popular can be weakened in an update and then suddenly become very unpopular, so patch is worth consideration.
+
+I stuck with **RandomForestClassifier**, since I already declared this a classification problem, and wanted to optimize inside of that algorithm itself. The hyperparameters I chose to investigate were:
+- **n_estimators**, the number of trees in the forest, because I felt that increasing them might improve accuracy.
+- **max_depth**, the maximum depth of each tree, because I was worried about overfitting.
+- **min_samples_leaf**, the minimum samples on each leaf, because I was worried about overfitting.
+- **min_samples_split**, the minimum number of samples required to split a node, because I was worried about overfitting.
+
+The accuracy of this model was approximately 0.474, or **47.4%**. I feel like this is an improvement over my Baseline Model's performance not just because it is explicitly more accurate, but because it takes into account more features that have been argumentatively established as relevant, leading to it being more robust and able to take more relevant factors into account.
+
+## Fairness Analysis
+
+For Fairness Analysis, I chose the evaluation metric of precision. My Group X is the position "bot", while my Group Y is the position "mid". What this means is that the fairness analysis is determining if the model is more precise when the position is "bot" or "mid" in a statistically significant way, which I chose to set to a = 0.05. Our hypotheses are:
+- **H0:** Our model is fair. Its precision for bot lane is the same as its precision for mid lane.
+- **H1:** Our model is unfair. Its precision for bot lane is not the same as its precision for mid lane.
+When I ran the fairness analysis test, it returned a p-value of approximately **0.186**, higher than our significance level. Therefore, we failed to reject H0, and cannot disprove that our model's precision for bot lane is similar to its significance for mid lane, at significance level 0.05.
