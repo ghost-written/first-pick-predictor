@@ -1,5 +1,5 @@
 # first-pick-predictor
-This is a classification-based prediction model which uses the champion ban list and several other features to predict the first champion picked in a League of Legends game.
+This is the writeup for a classification-based prediction model which uses the champion ban list and several other features to predict the first champion picked in a League of Legends game.
 
 ## Introduction and Question Identification
 ### Introduction
@@ -140,4 +140,31 @@ If we had access to the **total number of towers destroyed per team**, we could 
   width=800px
   height=600px
 ></iframe>
+
+Pictured is the Kolmogorov-Smirnov statistical result for our analysis to determine whether or not the missingness of the column 'elders', indicating how many Elder Dragons were killed, was dependent on the column 'patch', which showed what version of the game was being used. We determined to a high degree of confidence that it is not. That means that if we wanted to try to demonstrate that the missingness in 'elders' follows MAR principles, we could not use 'patch' as an example, because it demonstrates no correlation and therefore no dependency.
+
+This brings us, next, to hypothesis testing.
+
+## Hypothesis Testing
+When I used to play League of Legends, I played the champion Leona quite a bit. I wanted to investigate if Leona's win rate was reliably above or below 50%. So, I performed a hypothesis test under the following guidelines.
+
+- **H0:** Leona's win rate is not significantly less than 50%.
+- **H1:** Leona's win rate is significantly less than 50%.
+
+I ran a binomial hypothesis test, resulting in a win rate of 45.14%, with a p-value of 0.0000038041. **At significance level a = 0.01**, as well as the more permissive a = 0.05, we **reject H0** and say that Leona's win rate is **likely** below 50%. This question is worth investigating for the goal of this study because win rate may be a useful feature to incorporate later for predictive purposes, aggregated across match history. Understanding how common outliers are and understanding what distance from a 50% win rate makes an outlier is useful to know.
+
+This brings us, next, to framing our actual prediction problem.
+
+## Framing a Prediction Problem
+### Problem Identification
+
+From the beginning, our question is simple: **can we predict the first champion picked in a game?** We would like to achieve it using only knowledge of which champions were banned, but **do we need more**?
+
+This is a **classification** problem. It is a **multiclass classification** problem, because the question we are answering is not binary. If we were answering whether a champion would be picked or not, that would only have two categories, and therefore be binary. This, however, has a class for every champion. We are predicting **pick1** from the dataset we modified earlier, as that is the stated goal of this study, and it seems like something that should be reasonably predictable based on bans and shifting meta information.
+
+To evaluate our model, we will use **accuracy**. This is because many of the classes are roughly evenly balanced. If we could expect one third or one fourth of all champion entries to belong to a simple champion, then we might consider **F1-score**. However, the champion pool is so widely distributed that accuracy is the best, simplest metric we have.
+
+## Baseline Model
+Our Baseline Model uses 10 features, 
+
 
